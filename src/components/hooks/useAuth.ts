@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import { IAuthState } from '../../helpers/interfaces/auth/authInterfaces';
 import {
   selectIsLoggedIn,
   selectIsRefreshing,
@@ -6,7 +7,7 @@ import {
 	selectEmail
 } from '../../redux/auth/selectors';
 
-export const useAuth = () => {
+export const useAuth = (): IAuthState => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const isRefreshing = useSelector(selectIsRefreshing);
   const name = useSelector(selectName);

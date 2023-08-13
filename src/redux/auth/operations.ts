@@ -6,7 +6,7 @@ import { API } from './constants';
 
 axios.defaults.baseURL = API;
 
-const setAuthHeader = token => {
+const setAuthHeader = (token: string): void => {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
@@ -18,8 +18,12 @@ export const register = createAsyncThunk(
   'auth/register',
   async (credentials, thunkAPI) => {
     try {
-      const res = await axios.post('/auth/register', credentials);
-      const { data } = res;
+
+			console.log("-1. Cre:", credentials);	
+
+      const { data } = await axios.post('/auth/register', credentials);
+
+			console.log("0. Data: ", data);
 
       setAuthHeader(data.token);
 			

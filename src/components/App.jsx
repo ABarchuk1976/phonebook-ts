@@ -6,7 +6,7 @@ import Loader from './Loader/Loader';
 import { Layout } from './Layout';
 import { RestrictedRoute } from './RestrictedRoute';
 import { PrivateRoute } from './PrivateRoute';
-import { refreshUser } from '../redux/auth/operations';
+import { refreshUser } from '../redux/auth/operations.ts';
 import { useAuth } from './hooks/useAuth';
 
 const HomePage = lazy(() => import('../pages/Home'));

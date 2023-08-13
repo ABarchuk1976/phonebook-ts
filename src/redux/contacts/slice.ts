@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { toastError } from '../../components/Layout';
-import { logOut } from '../../redux/auth/operations';
+import { IContactItem } from '../../helpers/interfaces/contacts/contactsInterfaces';
+import { logOut } from '../auth/operations.ts';
 
 import {
   fetchContacts,
@@ -11,7 +12,7 @@ import {
 } from './operations';
 
 const initialState = {
-  items: [],
+  items: [] as IContactItem[],
   isLoading: false,
   error: null,
 };
