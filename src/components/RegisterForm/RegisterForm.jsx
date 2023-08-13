@@ -54,7 +54,7 @@ const RegisterForm = () => {
           type="password"
           name="password"
           autoComplete="current-password"
-          placeholder="7 characters or longer..."
+          placeholder="6 characters or longer..."
           required
         />
       </StyledLabel>

@@ -6,12 +6,12 @@ import { useAuth } from '../../components/hooks';
 import { StyledButton, UserMenuWrapper, UserText } from './UserMenu.styled';
 
 const UserMenu = () => {
-  const { user } = useAuth();
+  const { name } = useAuth();
   const dispatch = useDispatch();
 
   return (
     <UserMenuWrapper>
-      <UserText>Welcome, {user.name} </UserText>
+      <UserText>Welcome, { name } </UserText>
       <StyledButton type="button" onClick={() => dispatch(logOut())}>
         Log Out
       </StyledButton>

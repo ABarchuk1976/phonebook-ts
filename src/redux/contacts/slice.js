@@ -51,6 +51,7 @@ const contactsSlice = createSlice({
       .addCase(editContact.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.error = null;
+
         const { id, name, number } = payload;
         const idx = state.items.findIndex(contact => contact.id === id);
         state.items[idx] = { id, name, number };
