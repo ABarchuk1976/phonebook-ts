@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { logIn, logOut, register, refreshUser } from './operations.ts';
-import { IAuthPayload, IAuthState, StringNull } from '../../helpers/interfaces/auth/authInterfaces';
+import { logIn, logOut, register, refreshUser } from './operations';
+import { ICredentials, IAuthState } from '../../helpers/interfaces/auth/authInterfaces';
 
 const initialState: IAuthState = {
   name: null, 
@@ -10,12 +10,13 @@ const initialState: IAuthState = {
   isRefreshing: false,
 };
 
-const handleIsLoggedIn = (state: IAuthState, { payload }) => {
-	const { name, email, token } = payload as IAuthPayload;
+const handleIsLoggedIn = (state: IAuthState, { payload }: { payload: ICredentials}) => {
+	const { name, email, token } = payload;
 
-  state.name = name;
-  state.email = email;
-  state.token = token;
+  if (name) state.name = name;
+  if ( email) state.email = email;
+  if (token) state.token;
+
   state.isLoggedIn = true;
 };
 
@@ -40,8 +41,8 @@ const authSlice = createSlice({
       .addCase(refreshUser.rejected, state => {
         state.isRefreshing = false;
       })
-      .addCase(refreshUser.fulfilled, (state, { payload }) => {
-        state.token = payload as StringNull;
+      .addCase(refreshUser.fulfilled, (state, { payload }: { payload: string }) => {
+        state.token = payload;
         state.isLoggedIn = true;
         state.isRefreshing = false;
       });

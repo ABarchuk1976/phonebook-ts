@@ -1,12 +1,26 @@
-export type StringNull = string | null;
+type StringNull = string | null;
 
-export interface IAuthPayload {
-	name: StringNull;
-	email: StringNull;
-	token?: StringNull;
+export interface IUser {
+	name: string;
+	email: string;
+	password: string;
+	_id: string;
 }
 
-export interface IAuthState extends IAuthPayload {
+export interface IUserAuth extends IUser {
+	token: string;
+}
+export interface ICredentials {
+	name?: string;
+	email?: string;
+	password?: string;
+	token?: string;
+}
+
+export interface IAuthState {
+	name: StringNull;
+	email: StringNull;
+	token: StringNull;
   isLoggedIn: boolean;
   isRefreshing: boolean;
 }
