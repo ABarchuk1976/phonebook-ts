@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { toastError } from '../../components/Layout';
 import { IContactItem } from '../../helpers/interfaces/contacts/contactsInterfaces';
-import { logOut } from '../auth/operations.ts';
+import { logOut } from '../auth/operations';
 
 import {
   fetchContacts,
