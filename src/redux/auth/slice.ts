@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
 import { logIn, logOut, register, refreshUser } from './operations';
 import { ICredentials, IAuthState } from '../../helpers/interfaces/auth/authInterfaces';
 
@@ -29,13 +28,15 @@ const authSlice = createSlice({
     builder
       .addCase(register.fulfilled, handleIsLoggedIn)
       .addCase(logIn.fulfilled, handleIsLoggedIn)
-      .addCase(logOut.fulfilled, state => state = {...initialState})
-      .addCase(refreshUser.pending, state => state.isRefreshing = true)
-      .addCase(refreshUser.rejected, state => state.isRefreshing = false)
-      .addCase(refreshUser.fulfilled, (state, { payload }: { payload: PayloadAction["payload"] }) => {
-
-				console.log("2. Payload token: ", payload);
-        state.token = payload;
+      .addCase(logOut.fulfilled, () => initialState)
+      .addCase(refreshUser.pending, (state) => {
+				state.isRefreshing = true;
+			})
+      .addCase(refreshUser.rejected, (state) => {
+				state.isRefreshing = false;
+			})
+      .addCase(refreshUser.fulfilled, (state, { payload }) => {
+        state.token = payload.token;
         state.isLoggedIn = true;
         state.isRefreshing = false;
       });

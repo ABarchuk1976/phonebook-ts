@@ -1,4 +1,4 @@
-type StringNull = string | null;
+import { StringNull } from "../common/types";
 
 export interface IUser {
 	name: string;

@@ -58,7 +58,7 @@ export const editContact = createAsyncThunk(
 			const name = newName ? newName : '';
 			const number = newNumber ? newNumber : '';
 
-      const { data } = await axios.patch<IContactData>(`/contacts/${id}`, {
+      const { data } = await axios.patch<IContactItem>(`/contacts/${id}`, {
         name,
         number,
       });

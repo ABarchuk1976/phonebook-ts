@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { AnyAction, createSlice } from '@reduxjs/toolkit';
 
 import { toastError } from '../../components/Layout';
-import { IContactItem } from '../../helpers/interfaces/contacts/contactsInterfaces';
+import { IContactItem, IContactsState } from '../../helpers/interfaces/contacts/contactsInterfaces';
 import { logOut } from '../auth/operations';
 
 import {
@@ -11,19 +11,20 @@ import {
   editContact,
 } from './operations';
 
-const initialState = {
+const initialState: IContactsState = {
   items: [] as IContactItem[],
   isLoading: false,
   error: null,
 };
 
-const handlePending = ({ isLoading }) => {
-  isLoading = true;
+const handlePending = (state: IContactsState) => {
+  state.isLoading = true;
 };
 
-const handleRejected = ({ error, isLoading }, { payload }) => {
-  error = payload;
-  isLoading = false;
+const handleRejected = (state: IContactsState, { payload }:{payload: IContactsState['error']}) => {
+  state.error = payload;
+  state.isLoading = false;
+
   toastError('Something went wrong.');
 };
 
@@ -33,32 +34,26 @@ const contactsSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
-      .addCase(fetchContacts.pending, handlePending)
-      .addCase(fetchContacts.rejected, handleRejected)
       .addCase(fetchContacts.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.error = null;
         state.items = payload;
       })
-      .addCase(addContact.pending, handlePending)
-      .addCase(addContact.rejected, handleRejected)
       .addCase(addContact.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.error = null;
         state.items.push(payload);
       })
-      .addCase(editContact.pending, handlePending)
-      .addCase(editContact.rejected, handleRejected)
       .addCase(editContact.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.error = null;
 
         const { id, name, number } = payload;
         const idx = state.items.findIndex(contact => contact.id === id);
-        state.items[idx] = { id, name, number };
+        state.items[idx].id = id;
+        state.items[idx].name = name;
+        state.items[idx].number = number;
       })
-      .addCase(deleteContact.pending, handlePending)
-      .addCase(deleteContact.rejected, handleRejected)
       .addCase(deleteContact.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.error = null;
@@ -68,7 +63,9 @@ const contactsSlice = createSlice({
         state.items = [];
         state.isLoading = false;
         state.error = null;
-      });
+      })
+			.addMatcher((action: AnyAction) => (action.type as string).endsWith('/pending'), handlePending)
+			.addMatcher((action: AnyAction) => (action.type as string).endsWith('/rejected'), handleRejected)
   },
 });
 
