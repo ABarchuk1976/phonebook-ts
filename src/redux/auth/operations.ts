@@ -39,8 +39,6 @@ export const logIn = createAsyncThunk(
     try {
       const { data } = await axios.post<IUserAuth>('/auth/login', credentials);
 
-			console.log("1. Login Data: ", data);
-
       setAuthHeader(data.token);
 
       return data;
