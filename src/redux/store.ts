@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { $CombinedState, combineReducers, configureStore} from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
@@ -25,7 +25,10 @@ export const store = configureStore({
   middleware: [thunk],
 });
 
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof store.getState> & {
+  readonly [$CombinedState]?: undefined;
+};
+
 export type AppDispatch = typeof store.dispatch;
 
 export const persistor = persistStore(store);

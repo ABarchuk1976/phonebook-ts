@@ -11,7 +11,7 @@ export const toastMessage = message => {
       padding: '2rem',
       color: '#a89985',
       fontSize: '1rem',
-      backgroundColor: '#282c34',
+      backgroundcolor: '#282c34',
     },
     iconTheme: {
       primary: '#a89985',
@@ -31,7 +31,7 @@ export const toastError = message => {
     iconTheme: {
       primary: '#a89985',
       secondary: '#282c34',
-      backgroundColor: '#282c34',
+      backgroundcolor: '#282c34',
     },
   });
 };

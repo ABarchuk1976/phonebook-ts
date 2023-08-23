@@ -1,9 +1,9 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { IContactItem } from '../../helpers/interfaces/contacts/contactsInterfaces';
 
 import { selectFilter } from '../filter/selectors';
 
 import { RootState } from '../store';
+import { IContactItem } from '../../helpers/interfaces/contacts/contactsInterfaces';
 
 export const selectContacts = (state: RootState) => state.contacts.items;
 
@@ -12,9 +12,9 @@ export const selectIsLoading = (state: RootState) => state.contacts.isLoading;
 export const selectError = (state: RootState) => state.contacts.error;
 
 export const selectVisibleContacts = createSelector(
-  [selectContacts, selectFilter],
+  selectContacts, 
+	selectFilter,
   (items: IContactItem[], filter: string) => !items
 		? []
-		: items.filter(item => item.name.toLowerCase().includes(filter.toLowerCase())
-		)
+		: items.filter(item => item.name.toLowerCase().includes(filter.toLowerCase()))
 );
