@@ -1,7 +1,9 @@
+import { FC } from 'react';
+
 import { useAuth } from '../../components/hooks';
 import { StyledLink } from './Navigation.styled';
 
-const Navigation = () => {
+const Navigation: FC = () => {
   const { isLoggedIn } = useAuth();
   return (
     <nav>

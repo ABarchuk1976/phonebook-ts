@@ -1,9 +1,13 @@
-import { useEffect, useCallback } from 'react';
-import PropTypes from 'prop-types';
+import { useEffect, useCallback, FC, SyntheticEvent, ReactNode } from 'react';
+
+type Props = {
+	children: ReactNode;
+  onClose: () => void;
+};
 
 import { ModalContainer, Overlay } from './Modal.styled';
 
-const Modal = ({ children, onClose }) => {
+const Modal: FC<Props> = ({ children, onClose }) => {
   const memoKeyClose = useCallback(handelKeyClose, [handelKeyClose]);
 
   useEffect(() => {
@@ -14,14 +18,18 @@ const Modal = ({ children, onClose }) => {
     };
   }, [memoKeyClose]);
 
-  function handelKeyClose(evt) {
-    if (evt.code === 'Escape') {
+  function handelKeyClose(evt: KeyboardEvent) {
+		const code = evt?.code;
+
+    if (code === 'Escape') {
       onClose();
     }
   }
 
-  function handelClose(evt) {
-    if (evt.target === evt.currentTarget) {
+  function handelClose(evt: SyntheticEvent) {
+		const {target, currentTarget} = evt;
+
+    if (target === currentTarget) {
       onClose();
     }
   }
@@ -31,11 +39,6 @@ const Modal = ({ children, onClose }) => {
       <ModalContainer>{children}</ModalContainer>
     </Overlay>
   );
-};
-
-Modal.propTypes = {
-  children: PropTypes.node,
-  onClose: PropTypes.func,
 };
 
 export default Modal;

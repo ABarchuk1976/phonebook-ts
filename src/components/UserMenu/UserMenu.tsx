@@ -1,10 +1,12 @@
-import { logOut } from '../../redux/auth/operations.ts';
+import { FC } from 'react';
+
+import { logOut } from '../../redux/auth/operations';
 import { useAuth } from '../../components/hooks';
 
 import { StyledButton, UserMenuWrapper, UserText } from './UserMenu.styled';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 
-const UserMenu = () => {
+const UserMenu: FC = () => {
   const { name } = useAuth();
   const dispatch = useAppDispatch();
 

@@ -1,3 +1,5 @@
+import { FC, SyntheticEvent } from 'react';
+import { IAuthFormElements } from '../../helpers/interfaces/common/interfaces';
 import { register } from '../../redux/auth/operations';
 import { useAppDispatch } from '../hooks';
 import {
@@ -7,12 +9,14 @@ import {
   StyledLabel,
 } from './RegisterForm.styled';
 
-const RegisterForm = () => {
+const RegisterForm: FC = () => {
   const dispatch = useAppDispatch();
 
-  const handleSubmit = evt => {
+  const handleSubmit = (evt: SyntheticEvent) => {
     evt.preventDefault();
-    const { name, email, password } = evt.currentTarget.elements;
+
+		const form = evt?.currentTarget as HTMLFormElement;
+    const { name, email, password } = form.elements as IAuthFormElements;
 
     dispatch(
       register({
@@ -22,7 +26,7 @@ const RegisterForm = () => {
       })
     );
 
-    evt.currentTarget.reset();
+    form.reset();
   };
 
   return (

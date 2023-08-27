@@ -4,7 +4,7 @@ import { ThreeCircles } from 'react-loader-spinner';
 import Modal from '../../components/Modal';
 
 const Loader: FC = () => (
-  <Modal>
+  <Modal onClose={(): void => {}}>
     <ThreeCircles
       height="40"
       width="40"
