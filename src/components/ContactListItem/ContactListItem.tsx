@@ -1,6 +1,4 @@
-import { useState } from 'react';
-
-import PropTypes from 'prop-types';
+import { FC, useState } from 'react';
 
 import {
   ItemWrapper,
@@ -16,13 +14,19 @@ import ChangeForm from '../../components/ChangeForm';
 import DeleteForm from '../../components/DeleteForm';
 import Avatar from '../../components/Avatar/Avatar';
 
-const ContactListItem = ({ id, name, number }) => {
-  const [isOpenedEditModal, SetIsOpenedEditModal] = useState(false);
-  const [isOpenedDeleteModal, SetIsOpenedDeleteModal] = useState(false);
+type Props = {
+  id: string;
+  name: string;
+  number: string;
+};
 
-  const handleEditModalToggle = () => SetIsOpenedEditModal(!isOpenedEditModal);
-  const handleDeleteModalToggle = () =>
-    SetIsOpenedDeleteModal(!isOpenedDeleteModal);
+const ContactListItem: FC<Props> = ({ id, name, number }) => {
+  const [isOpenedEditModal, setIsOpenedEditModal] = useState(false);
+  const [isOpenedDeleteModal, setIsOpenedDeleteModal] = useState(false);
+
+  const handleEditModalToggle = (): void => setIsOpenedEditModal(!isOpenedEditModal);
+  const handleDeleteModalToggle = (): void =>
+    setIsOpenedDeleteModal(!isOpenedDeleteModal);
 
   return (
     <>
@@ -63,12 +67,6 @@ const ContactListItem = ({ id, name, number }) => {
       )}
     </>
   );
-};
-
-ContactListItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
 };
 
 export default ContactListItem;

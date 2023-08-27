@@ -3,7 +3,7 @@ import { StringNull } from "../common/types";
 export interface IContact {
 	id: string;
 	name: string;
-	number?: string;
+	number: string;
 	owner: string;
 }
 export interface IContactsState {

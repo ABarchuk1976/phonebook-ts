@@ -4,8 +4,9 @@ import { selectVisibleContacts } from '../../redux/contacts/selectors';
 
 import ContactListItem from '../../components/ContactListItem';
 import { StyledList } from './ContactList.styled';
+import { FC } from 'react';
 
-const ContactList = () => {
+const ContactList: FC = () => {
   const visibleContacts = useSelector(selectVisibleContacts);
 
   return (
