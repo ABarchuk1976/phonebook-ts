@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { FC, SyntheticEvent } from 'react';
 
 import { deleteContact } from '../../redux/contacts/operations';
 
@@ -6,15 +6,23 @@ import {
   StyledInput,
   StyledLabel,
   Button,
+	ButtonsWrapper,
   StyledForm,
 } from './DeleteForm.styled';
-import { ButtonsWrapper } from './DeleteForm.styled';
+
 import { useAppDispatch } from '../hooks';
 
-const DeleteForm = ({ id, name, number, onClose }) => {
+type Props = {
+  id: string;
+  name: string;
+  number: string;
+  onClose: () => void;
+};
+
+const DeleteForm: FC<Props> = ({ id, name, number, onClose }) => {
   const dispatch = useAppDispatch();
 
-  const handleDeleteSubmit = evt => {
+  const handleDeleteSubmit = (evt: SyntheticEvent) => {
     evt.preventDefault();
 
     dispatch(deleteContact(id));
@@ -40,13 +48,6 @@ const DeleteForm = ({ id, name, number, onClose }) => {
       </ButtonsWrapper>
     </StyledForm>
   );
-};
-
-DeleteForm.propTypes = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired,
 };
 
 export default DeleteForm;
