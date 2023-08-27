@@ -13,7 +13,7 @@ import { selectContacts } from '../../redux/contacts/selectors';
 import { toastMessage } from '../../components/Layout';
 import { IContact } from '../../helpers/interfaces/contacts/contactsInterfaces';
 import { useAppDispatch } from '../hooks';
-import { IChangeFormElements } from '../../helpers/interfaces/common/interfaces';
+import { IFormElements } from '../../helpers/interfaces/common/interfaces';
 
 type Props = {
   id: string;
@@ -42,7 +42,7 @@ const ChangeForm: FC<Props> = ({ id, name, number, onClose }) => {
     evt.preventDefault();
 
     const form = evt?.target as HTMLFormElement;
-    const elements = form.elements as IChangeFormElements;
+    const elements = form.elements as IFormElements;
 
     const contactName = elements.name.value.trim();
     const contactPhone = elements.number.value.trim();

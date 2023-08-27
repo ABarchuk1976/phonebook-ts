@@ -1,8 +1,9 @@
+import { FC } from 'react';
 import { ThreeCircles } from 'react-loader-spinner';
 
 import Modal from '../../components/Modal';
 
-const Loader = () => (
+const Loader: FC = () => (
   <Modal>
     <ThreeCircles
       height="40"

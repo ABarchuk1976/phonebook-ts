@@ -13,7 +13,7 @@ import {
 
 import { useAppDispatch } from '../hooks';
 import { FC, SyntheticEvent } from 'react';
-import { IChangeFormElements } from '../../helpers/interfaces/common/interfaces';
+import { IFormElements } from '../../helpers/interfaces/common/interfaces';
 
 const InputForm: FC = () => {
   const contacts = useSelector(selectContacts);
@@ -23,7 +23,7 @@ const InputForm: FC = () => {
     evt.preventDefault();
 
 		const form = evt?.target as HTMLFormElement;
-    const { name, number } = form.elements as IChangeFormElements;
+    const { name, number } = form.elements as IFormElements;
     
     const contactName = name.value.trim();
     const contactPhone = number.value.trim();

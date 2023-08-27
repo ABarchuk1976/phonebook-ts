@@ -1,4 +1,7 @@
-import { logIn } from '../../redux/auth/operations.ts';
+import { FC, SyntheticEvent } from 'react';
+import { IAuthFormElements } from '../../helpers/interfaces/common/interfaces';
+
+import { logIn } from '../../redux/auth/operations';
 import { useAppDispatch } from '../hooks';
 import {
   StyledButton,
@@ -7,15 +10,17 @@ import {
   StyledLabel,
 } from './LoginForm.styled';
 
-const LoginForm = () => {
+const LoginForm: FC = () => {
   const dispatch = useAppDispatch();
 
-  const handleSubmit = evt => {
+  const handleSubmit = (evt: SyntheticEvent) => {
     evt.preventDefault();
-    const { email, password } = evt.currentTarget.elements;
+
+		const form = evt?.currentTarget as HTMLFormElement;
+    const { email, password } = form.elements as IAuthFormElements;
 
     dispatch(logIn({ email: email.value, password: password.value }));
-    evt.currentTarget.reset();
+    form.reset();
   };
 
   return (
