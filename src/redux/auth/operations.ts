@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 import { toastError } from '../../components/Layout';
-import { ICredentials, IUserAuth } from '../../helpers/interfaces/auth/authInterfaces';
+import { IUserAuth } from '../../helpers/interfaces/auth/authInterfaces';
 import { API } from './constants';
 import { RootState } from '../store';
 
@@ -18,7 +18,7 @@ const clearAuthHeader = (): void => {
 
 export const register = createAsyncThunk(
   'auth/register',
-  async (credentials: ICredentials, thunkAPI) => {
+  async (credentials: Partial<IUserAuth>, thunkAPI) => {
     try {
 
       const { data } = await axios.post<IUserAuth>('/auth/register', credentials);
@@ -35,7 +35,7 @@ export const register = createAsyncThunk(
 
 export const logIn = createAsyncThunk(
   'auth/login',
-  async (credentials: ICredentials, thunkAPI) => {
+  async (credentials: Partial<IUserAuth>, thunkAPI) => {
     try {
       const { data } = await axios.post<IUserAuth>('/auth/login', credentials);
 

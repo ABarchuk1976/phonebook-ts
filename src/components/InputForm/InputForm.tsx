@@ -1,5 +1,5 @@
 import { toastMessage } from '../../components/Layout';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { addContact } from '../../redux/contacts/operations';
 import { selectContacts } from '../../redux/contacts/selectors';
@@ -10,10 +10,11 @@ import {
   Button,
   StyledForm,
 } from './InputForm.styled';
+import { useAppDispatch } from '../hooks';
 
 const InputForm = () => {
   const contacts = useSelector(selectContacts);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleSubmit = evt => {
     evt.preventDefault();

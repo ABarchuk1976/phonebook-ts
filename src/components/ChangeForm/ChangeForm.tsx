@@ -1,7 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
-
-import PropTypes from 'prop-types';
+import { useState, FC, SyntheticEvent, ChangeEvent } from 'react';
 
 import { editContact } from '../../redux/contacts/operations';
 
@@ -13,15 +11,30 @@ import {
 } from './ChangeForm.styled';
 import { selectContacts } from '../../redux/contacts/selectors';
 import { toastMessage } from '../../components/Layout';
+import { IContact } from '../../helpers/interfaces/contacts/contactsInterfaces';
+import { useAppDispatch } from '../hooks';
 
-const ChangeForm = ({ id, name, number, onClose }) => {
+type Props = {
+  id: string;
+  name: string;
+  number: string;
+  onClose: () => void;
+};
+
+interface IChangeFormElements extends HTMLFormControlsCollection {
+	name: HTMLInputElement;
+	number: HTMLInputElement;
+}
+
+const ChangeForm: FC<Props> = ({ id, name, number, onClose }) => {
   const contacts = useSelector(selectContacts);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [nameValue, setNameValue] = useState(name);
   const [numberValue, setNumberValue] = useState(number);
 
-  const handleChange = evt => {
+  const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const currentInput = evt?.target;
+
     if (currentInput.name === 'name') {
       setNameValue(currentInput.value);
     } else {
@@ -29,14 +42,14 @@ const ChangeForm = ({ id, name, number, onClose }) => {
     }
   };
 
-  const handleEditSubmit = evt => {
+  const handleEditSubmit = (evt: SyntheticEvent) => {
     evt.preventDefault();
 
-    const form = evt?.target;
-    const { name: nameInput, number: numberInput } = form.elements;
+    const form = evt?.target as HTMLFormElement;
+    const elements = form.elements as IChangeFormElements;
 
-    const contactName = nameInput.value.trim();
-    const contactPhone = numberInput.value.trim();
+    const contactName = elements.name.value.trim();
+    const contactPhone = elements.number.value.trim();
 
     if (
       contacts.some(
@@ -52,8 +65,10 @@ const ChangeForm = ({ id, name, number, onClose }) => {
       onClose();
       return;
     }
+		const contactData = { id, name: contactName, number: contactPhone } as Partial<IContact>;
 
-    dispatch(editContact({ id, name: contactName, number: contactPhone }));
+    dispatch(editContact( contactData ));
+
     onClose();
   };
 
@@ -64,7 +79,6 @@ const ChangeForm = ({ id, name, number, onClose }) => {
         <StyledInput
           type="text"
           name="name"
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           value={nameValue}
           required
@@ -77,7 +91,6 @@ const ChangeForm = ({ id, name, number, onClose }) => {
         <StyledInput
           type="tel"
           name="number"
-          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           value={numberValue}
           required
@@ -88,13 +101,6 @@ const ChangeForm = ({ id, name, number, onClose }) => {
       <Button type="submit">Edit contact</Button>
     </StyledForm>
   );
-};
-
-ChangeForm.propTypes = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired,
 };
 
 export default ChangeForm;

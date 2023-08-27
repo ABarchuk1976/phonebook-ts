@@ -1,5 +1,3 @@
-import { useDispatch } from 'react-redux';
-
 import PropTypes from 'prop-types';
 
 import { deleteContact } from '../../redux/contacts/operations';
@@ -11,9 +9,10 @@ import {
   StyledForm,
 } from './DeleteForm.styled';
 import { ButtonsWrapper } from './DeleteForm.styled';
+import { useAppDispatch } from '../hooks';
 
 const DeleteForm = ({ id, name, number, onClose }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleDeleteSubmit = evt => {
     evt.preventDefault();

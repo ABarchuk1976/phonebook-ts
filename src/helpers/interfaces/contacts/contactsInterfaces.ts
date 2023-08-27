@@ -1,20 +1,13 @@
 import { StringNull } from "../common/types";
 
-export interface IContactItem {
+export interface IContact {
 	id: string;
 	name: string;
 	number?: string;
 	owner: string;
-} 
-
-export interface IContactData {
-	id?: string;
-	name?: string;
-	number?: string;
 }
-
 export interface IContactsState {
-	items: IContactItem[];
+	items: IContact[];
   isLoading: boolean;
   error: StringNull;
 }

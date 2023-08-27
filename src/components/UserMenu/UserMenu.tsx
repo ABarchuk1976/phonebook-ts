@@ -1,13 +1,12 @@
-import { useDispatch } from 'react-redux';
-
 import { logOut } from '../../redux/auth/operations.ts';
 import { useAuth } from '../../components/hooks';
 
 import { StyledButton, UserMenuWrapper, UserText } from './UserMenu.styled';
+import { useAppDispatch } from '../hooks/useAppDispatch';
 
 const UserMenu = () => {
   const { name } = useAuth();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   return (
     <UserMenuWrapper>

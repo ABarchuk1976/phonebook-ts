@@ -1,6 +1,7 @@
+import { FC } from 'react';
 import { StyledLink } from './AuthNav.styled';
 
-const AuthNav = () => {
+const AuthNav: FC = () => {
   return (
     <nav>
       <StyledLink to="/register">Register</StyledLink>

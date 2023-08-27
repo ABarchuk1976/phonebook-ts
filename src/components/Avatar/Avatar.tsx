@@ -1,7 +1,11 @@
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 import { AvatarWrapper, FirstLetters } from './Avatar.styled';
 
-const Avatar = ({ str }) => {
+type Props = {
+	str: string
+}
+
+const Avatar: FC<Props> = ({ str }) => {
   const firstLetters = str
     ? str
         .split(' ')
@@ -14,10 +18,6 @@ const Avatar = ({ str }) => {
       <FirstLetters>{firstLetters}</FirstLetters>
     </AvatarWrapper>
   );
-};
-
-Avatar.propTypes = {
-  str: PropTypes.string.isRequired,
 };
 
 export default Avatar;

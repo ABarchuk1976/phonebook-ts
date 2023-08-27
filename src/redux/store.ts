@@ -1,7 +1,7 @@
-import { $CombinedState, combineReducers, configureStore} from '@reduxjs/toolkit';
+import { $CombinedState, combineReducers, configureStore, AnyAction, Store } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import thunk from 'redux-thunk';
+import thunk, { ThunkDispatch } from 'redux-thunk';
 
 import { contactsReducer } from './contacts/slice';
 import { filterReducer } from './filter/slice';
@@ -19,16 +19,16 @@ const rootReducer = combineReducers({
   auth: persistReducer(authPersistConfig, authReducer),
 });
 
-export const store = configureStore({
+export type RootState = ReturnType<typeof rootReducer>;
+
+export type AppThunkDispatch = ThunkDispatch<RootState, any, AnyAction>;
+
+export type AppStore = Omit<Store<RootState, AnyAction>, "dispatch"> & { dispatch: AppThunkDispatch};
+
+export const store: AppStore = configureStore({
   reducer: rootReducer,
 	devTools: process.env.NODE_ENV !== 'production',
   middleware: [thunk],
 });
-
-export type RootState = ReturnType<typeof store.getState> & {
-  readonly [$CombinedState]?: undefined;
-};
-
-export type AppDispatch = typeof store.dispatch;
 
 export const persistor = persistStore(store);

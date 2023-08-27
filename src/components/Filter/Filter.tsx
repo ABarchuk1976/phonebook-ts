@@ -1,11 +1,10 @@
-import { useDispatch } from 'react-redux';
-
 import { setFilter } from '../../redux/filter/slice';
+import { useAppDispatch } from '../hooks';
 
 import { FilterLabel, FilterInput } from './Filter.styled';
 
 const Filter = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handlerFilterChange = evt => {
     dispatch(setFilter(evt?.target?.value));

@@ -1,7 +1,7 @@
-import { AnyAction, createSlice } from '@reduxjs/toolkit';
+import { AnyAction, AsyncThunkAction, createSlice } from '@reduxjs/toolkit';
 
 import { toastError } from '../../components/Layout';
-import { IContactItem, IContactsState } from '../../helpers/interfaces/contacts/contactsInterfaces';
+import { IContact, IContactsState } from '../../helpers/interfaces/contacts/contactsInterfaces';
 import { logOut } from '../auth/operations';
 
 import {
@@ -12,7 +12,7 @@ import {
 } from './operations';
 
 const initialState: IContactsState = {
-  items: [] as IContactItem[],
+  items: [] as IContact[],
   isLoading: false,
   error: null,
 };
@@ -64,8 +64,8 @@ const contactsSlice = createSlice({
         state.isLoading = false;
         state.error = null;
       })
-			.addMatcher((action: AnyAction) => (action.type as string).endsWith('/pending'), handlePending)
-			.addMatcher((action: AnyAction) => (action.type as string).endsWith('/rejected'), handleRejected)
+			.addMatcher((action) => (action.type as string).endsWith('/pending'), handlePending)
+			.addMatcher((action) => (action.type as string).endsWith('/rejected'), handleRejected)
   },
 });
 

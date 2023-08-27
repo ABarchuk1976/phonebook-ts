@@ -1,10 +1,11 @@
+import { FC } from 'react';
 import AuthNav from '../../components/AuthNav';
 import { useAuth } from '../../components/hooks';
 import Navigation from '../../components/Navigation';
 import UserMenu from '../../components/UserMenu';
 import { StyledHeader } from './AppBar.styled';
 
-const AppBar = () => {
+const AppBar: FC = () => {
   const { isLoggedIn } = useAuth();
 
   return (

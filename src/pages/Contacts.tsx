@@ -1,4 +1,3 @@
-import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
 import { useContacts } from '../components/hooks';
@@ -10,9 +9,10 @@ import Loader from '../components/Loader';
 
 import { fetchContacts } from '../redux/contacts/operations';
 import { AsideOperation, ContactsContainer } from '../components/common.styled';
+import { useAppDispatch } from '../components/hooks/useAppDispatch';
 
 const Contacts = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { isLoading, error } = useContacts();
 
   useEffect(() => {

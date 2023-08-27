@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { logIn, logOut, register, refreshUser } from './operations';
-import { ICredentials, IAuthState } from '../../helpers/interfaces/auth/authInterfaces';
+import { IAuthState, IUserAuth } from '../../helpers/interfaces/auth/authInterfaces';
 
 const initialState: IAuthState = {
   name: null, 
@@ -10,7 +10,7 @@ const initialState: IAuthState = {
   isRefreshing: false,
 };
 
-const handleIsLoggedIn = (state: IAuthState, { payload }: { payload: ICredentials}) => {
+const handleIsLoggedIn = (state: IAuthState, { payload }: { payload: Partial<IUserAuth>}) => {
 	const { name, email, token } = payload;
 
   if (name) state.name = name;

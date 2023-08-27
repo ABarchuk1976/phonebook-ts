@@ -10,13 +10,6 @@ export interface IUser {
 export interface IUserAuth extends IUser {
 	token: string;
 }
-export interface ICredentials {
-	name?: string;
-	email?: string;
-	password?: string;
-	token?: string;
-}
-
 export interface IAuthState {
 	name: StringNull;
 	email: StringNull;

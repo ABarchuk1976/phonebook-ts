@@ -1,6 +1,5 @@
-import { useDispatch } from 'react-redux';
-
 import { logIn } from '../../redux/auth/operations.ts';
+import { useAppDispatch } from '../hooks';
 import {
   StyledButton,
   StyledForm,
@@ -9,7 +8,7 @@ import {
 } from './LoginForm.styled';
 
 const LoginForm = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleSubmit = evt => {
     evt.preventDefault();
