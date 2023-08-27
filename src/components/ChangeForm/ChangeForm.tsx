@@ -13,6 +13,7 @@ import { selectContacts } from '../../redux/contacts/selectors';
 import { toastMessage } from '../../components/Layout';
 import { IContact } from '../../helpers/interfaces/contacts/contactsInterfaces';
 import { useAppDispatch } from '../hooks';
+import { IChangeFormElements } from '../../helpers/interfaces/common/interfaces';
 
 type Props = {
   id: string;
@@ -20,11 +21,6 @@ type Props = {
   number: string;
   onClose: () => void;
 };
-
-interface IChangeFormElements extends HTMLFormControlsCollection {
-	name: HTMLInputElement;
-	number: HTMLInputElement;
-}
 
 const ChangeForm: FC<Props> = ({ id, name, number, onClose }) => {
   const contacts = useSelector(selectContacts);
