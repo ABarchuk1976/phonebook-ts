@@ -25,7 +25,7 @@ const DeleteForm: FC<Props> = ({ id, name, number, onClose }) => {
   const handleDeleteSubmit = (evt: SyntheticEvent) => {
     evt.preventDefault();
 
-    dispatch(deleteContact(id));
+    void dispatch(deleteContact(id));
 
     onClose();
   };

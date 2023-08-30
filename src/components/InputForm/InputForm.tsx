@@ -1,4 +1,3 @@
-import { toastMessage } from '../../components/Layout';
 import { useSelector } from 'react-redux';
 
 import { addContact } from '../../redux/contacts/operations';
@@ -14,6 +13,7 @@ import {
 import { useAppDispatch } from '../hooks';
 import { FC, SyntheticEvent } from 'react';
 import { IFormElements } from '../../helpers/interfaces/common/interfaces';
+import { toastMessage } from '../common.styled';
 
 const InputForm: FC = () => {
   const contacts = useSelector(selectContacts);
@@ -36,7 +36,7 @@ const InputForm: FC = () => {
     ) {
       form.reset();
 
-      dispatch(addContact({ name: contactName, number: contactPhone }));
+      void dispatch(addContact({ name: contactName, number: contactPhone }));
     } else {
       toastMessage('Contact with such name exists yet.');
     }

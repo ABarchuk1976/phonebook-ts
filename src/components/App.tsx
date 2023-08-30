@@ -18,8 +18,8 @@ const App = () => {
   const dispatch = useAppDispatch();
   const { isRefreshing } = useAuth();
 
-  useEffect(() => {
-    dispatch(refreshUser());
+  useEffect( () => {
+    void dispatch(refreshUser());
   }, [dispatch]);
 
   return isRefreshing ? (

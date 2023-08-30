@@ -1,6 +1,7 @@
+import { FC } from 'react';
 import RegisterForm from '../components/RegisterForm';
 
-const Register = () => {
+const Register: FC = () => {
   return <RegisterForm />;
 };
 

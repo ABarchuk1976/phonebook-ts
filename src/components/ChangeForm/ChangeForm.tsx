@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useState, FC, SyntheticEvent, ChangeEvent } from 'react';
 
 import { editContact } from '../../redux/contacts/operations';
@@ -10,10 +10,11 @@ import {
   StyledForm,
 } from './ChangeForm.styled';
 import { selectContacts } from '../../redux/contacts/selectors';
-import { toastMessage } from '../../components/Layout';
+
 import { IContact } from '../../helpers/interfaces/contacts/contactsInterfaces';
 import { useAppDispatch } from '../hooks';
 import { IFormElements } from '../../helpers/interfaces/common/interfaces';
+import { toastMessage } from '../common.styled';
 
 type Props = {
   id: string;
@@ -63,7 +64,7 @@ const ChangeForm: FC<Props> = ({ id, name, number, onClose }) => {
     }
 		const contactData = { id, name: contactName, number: contactPhone } as Partial<IContact>;
 
-    dispatch(editContact( contactData ));
+    void dispatch(editContact( contactData ));
 
     onClose();
   };

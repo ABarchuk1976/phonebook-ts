@@ -1,4 +1,4 @@
-import { $CombinedState, combineReducers, configureStore, AnyAction, Store } from '@reduxjs/toolkit';
+import { combineReducers, configureStore, AnyAction, Store } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import thunk, { ThunkDispatch } from 'redux-thunk';
@@ -21,7 +21,7 @@ const rootReducer = combineReducers({
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-export type AppThunkDispatch = ThunkDispatch<RootState, any, AnyAction>;
+export type AppThunkDispatch = ThunkDispatch<RootState, unknown, AnyAction>;
 
 export type AppStore = Omit<Store<RootState, AnyAction>, "dispatch"> & { dispatch: AppThunkDispatch};
 

@@ -19,7 +19,7 @@ const LoginForm: FC = () => {
 		const form = evt?.currentTarget as HTMLFormElement;
     const { email, password } = form.elements as IAuthFormElements;
 
-    dispatch(logIn({ email: email.value, password: password.value }));
+    void dispatch(logIn({ email: email.value, password: password.value }));
     form.reset();
   };
 

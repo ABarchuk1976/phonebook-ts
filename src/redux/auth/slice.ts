@@ -10,12 +10,12 @@ const initialState: IAuthState = {
   isRefreshing: false,
 };
 
-const handleIsLoggedIn = (state: IAuthState, { payload }: { payload: Partial<IUserAuth>}) => {
+const handleIsLoggedIn = (state: IAuthState, { payload }: { payload: IUserAuth}) => {
 	const { name, email, token } = payload;
 
   if (name) state.name = name;
   if (email) state.email = email;
-  if (token) state.token;
+  if (token) state.token = token;
 
   state.isLoggedIn = true;
 };

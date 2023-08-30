@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import {
   AppTitle,
   Container,
@@ -5,7 +6,7 @@ import {
   Title,
 } from '../components/common.styled';
 
-const Home = () => {
+const Home: FC = () => {
   return (
     <Container>
       <HeaderWrapper>

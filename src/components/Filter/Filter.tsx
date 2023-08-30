@@ -2,7 +2,6 @@ import { FC, ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { setFilter } from '../../redux/filter/slice';
-import { useAppDispatch } from '../hooks';
 
 import { FilterLabel, FilterInput } from './Filter.styled';
 

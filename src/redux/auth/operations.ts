@@ -1,10 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-import { toastError } from '../../components/Layout';
+
 import { IUserAuth } from '../../helpers/interfaces/auth/authInterfaces';
 import { API } from './constants';
 import { RootState } from '../store';
+import { toastError } from '../../components/common.styled';
 
 axios.defaults.baseURL = API;
 
@@ -63,9 +64,9 @@ export const logOut = createAsyncThunk(
 export const refreshUser = createAsyncThunk(
   'auth/refresh',
   async (_, thunkAPI) => {
-    const state = thunkAPI.getState() as RootState;
+    const { auth } = thunkAPI.getState() as RootState;
 
-    const persistedToken = state.auth.token;
+    const persistedToken = auth.token;
 
     if (!persistedToken) {
       return thunkAPI.rejectWithValue('Unable to fetch user');
@@ -73,6 +74,7 @@ export const refreshUser = createAsyncThunk(
 
     try {
       setAuthHeader(persistedToken);
+
       const { data } = await axios.get<IUserAuth>('/auth/current');
 			
       return data;

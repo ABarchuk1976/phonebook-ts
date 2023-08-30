@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 
 import { useContacts } from '../components/hooks';
 
@@ -11,12 +11,12 @@ import { fetchContacts } from '../redux/contacts/operations';
 import { AsideOperation, ContactsContainer } from '../components/common.styled';
 import { useAppDispatch } from '../components/hooks/useAppDispatch';
 
-const Contacts = () => {
+const Contacts: FC = () => {
   const dispatch = useAppDispatch();
   const { isLoading, error } = useContacts();
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    void dispatch(fetchContacts());
   }, [dispatch]);
 
   return (

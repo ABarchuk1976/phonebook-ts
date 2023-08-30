@@ -18,7 +18,7 @@ const RegisterForm: FC = () => {
 		const form = evt?.currentTarget as HTMLFormElement;
     const { name, email, password } = form.elements as IAuthFormElements;
 
-    dispatch(
+    void dispatch(
       register({
         name: name.value,
         email: email.value,

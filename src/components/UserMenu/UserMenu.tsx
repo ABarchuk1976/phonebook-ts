@@ -13,7 +13,7 @@ const UserMenu: FC = () => {
   return (
     <UserMenuWrapper>
       <UserText>Welcome, { name } </UserText>
-      <StyledButton type="button" onClick={() => dispatch(logOut())}>
+      <StyledButton type="button" onClick={() => void dispatch(logOut())}>
         Log Out
       </StyledButton>
     </UserMenuWrapper>
