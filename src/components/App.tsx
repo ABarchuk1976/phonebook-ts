@@ -1,11 +1,11 @@
-import { lazy, useEffect } from 'react';
+import { FC, lazy, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import Loader from './Loader/Loader';
 import { Layout } from './Layout';
 import { RestrictedRoute } from './RestrictedRoute';
 import { PrivateRoute } from './PrivateRoute';
-import { refreshUser } from '../redux/auth/operations';
+import { refresh } from '../redux/auth/operations';
 import { useAuth } from './hooks/useAuth';
 import { useAppDispatch } from './hooks';
 
@@ -14,13 +14,15 @@ const RegisterPage = lazy(() => import('../pages/Register'));
 const LoginPage = lazy(() => import('../pages/Login'));
 const ContactsPage = lazy(() => import('../pages/Contacts'));
 
-const App = () => {
+const App: FC = () => {
   const dispatch = useAppDispatch();
   const { isRefreshing } = useAuth();
 
   useEffect( () => {
-    void dispatch(refreshUser());
+			void dispatch(refresh());
   }, [dispatch]);
+
+	
 
   return isRefreshing ? (
     <Loader />
@@ -39,6 +41,12 @@ const App = () => {
         />
         <Route
           path="/login"
+          element={
+            <RestrictedRoute redirectTo="/contacts" component={<LoginPage />} />
+          }
+        />
+        <Route
+          path="/current"
           element={
             <RestrictedRoute redirectTo="/contacts" component={<LoginPage />} />
           }
