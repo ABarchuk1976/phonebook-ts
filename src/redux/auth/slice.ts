@@ -17,7 +17,7 @@ const handleIsLoggedIn = (state: IAuthState, { payload }: {payload: unknown}) =>
   if (email) state.email = email;
   if (token) state.token = token;
 
-  state.isLoggedIn = true;
+  state.isLoggedIn = !!token;
 	state.isRefreshing = false;
 };
 
