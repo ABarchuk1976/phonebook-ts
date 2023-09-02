@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { CaseReducer, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { logIn, logOut, register, refreshUser } from './operations';
 import { IAuthState, IUserAuth } from '../../helpers/interfaces/auth/authInterfaces';
 
@@ -10,8 +10,8 @@ export const initialState: IAuthState = {
   isRefreshing: false,
 };
 
-const handleIsLoggedIn = (state: IAuthState, { payload }: {payload: unknown}) => { 
-	const { name, email, token } = payload as IUserAuth;
+const handleIsLoggedIn: CaseReducer<IAuthState, PayloadAction<Partial<IUserAuth>>> = (state, { payload }): void => { 
+	const { name, email, token } = payload;
 
   if (name) state.name = name;
   if (email) state.email = email;

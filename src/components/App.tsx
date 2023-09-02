@@ -16,11 +16,11 @@ const ContactsPage = lazy(() => import('../pages/Contacts'));
 
 const App: FC = () => {
   const dispatch = useAppDispatch();
-  const { isRefreshing } = useAuth();
+  const { isRefreshing, token } = useAuth();
 
   useEffect( () => {
-			void dispatch(refreshUser());
-  }, [dispatch]);
+			if (token) void dispatch(refreshUser({token}));
+  }, [dispatch, token]);
 
 	
 

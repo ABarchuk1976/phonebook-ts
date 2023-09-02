@@ -4,10 +4,7 @@ import axios from 'axios';
 
 import { IUserAuth } from '../../helpers/interfaces/auth/authInterfaces';
 import { API } from './constants';
-import { RootState } from '../store';
 import { toastError } from '../../components/common.styled';
-import { initialState } from './slice';
-import { selectToken } from './selectors';
 
 axios.defaults.baseURL = API;
 
@@ -65,21 +62,17 @@ export const logOut = createAsyncThunk(
 
 export const refreshUser = createAsyncThunk(
   'auth/refresh',
-  async (_, thunkAPI) => {
-    const token = selectToken(thunkAPI.getState() as RootState);
+  async (credentials: Partial<IUserAuth>, thunkAPI) => {
+    const token = credentials.token!;
 
-    if (!token) {
-      return initialState;
-    }
-
-    try {
-      setAuthHeader(token);
-
-      const { data } = await axios.get<IUserAuth>('/auth/current');
-			
-      return data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue((error as Error).message);
-    }
-  }
+			try {
+				setAuthHeader(token);
+	
+				const { data } = await axios.get<IUserAuth>('/auth/current');
+				
+				return data;
+			} catch (error) {
+				return thunkAPI.rejectWithValue((error as Error).message);
+			}
+		}
 );

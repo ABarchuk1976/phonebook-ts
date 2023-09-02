@@ -1,1 +1,0 @@
-import{j as e,C as s,H as o,A as r,T as t}from"./index-106a910f.js";const n=()=>e.jsx(s,{children:e.jsxs(o,{children:[e.jsx(r,{children:"Magic Phone book"}),e.jsx(t,{children:"Login to access to your contacts."})]})});export{n as default};
