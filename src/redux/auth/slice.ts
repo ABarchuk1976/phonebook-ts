@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { logIn, logOut, register, refresh } from './operations';
+import { logIn, logOut, register, refreshUser } from './operations';
 import { IAuthState, IUserAuth } from '../../helpers/interfaces/auth/authInterfaces';
 
 export const initialState: IAuthState = {
@@ -10,8 +10,8 @@ export const initialState: IAuthState = {
   isRefreshing: false,
 };
 
-const handleIsLoggedIn = (state: IAuthState, { payload }: {payload: IUserAuth}) => { 
-	const { name, email, token } = payload;
+const handleIsLoggedIn = (state: IAuthState, { payload }: {payload: unknown}) => { 
+	const { name, email, token } = payload as IUserAuth;
 
   if (name) state.name = name;
   if (email) state.email = email;
@@ -29,12 +29,12 @@ const authSlice = createSlice({
     builder
       .addCase(register.fulfilled, handleIsLoggedIn)
       .addCase(logIn.fulfilled, handleIsLoggedIn)
-			.addCase(refresh.fulfilled, handleIsLoggedIn)
+			.addCase(refreshUser.fulfilled, handleIsLoggedIn)
       .addCase(logOut.fulfilled, () => initialState)
       .addCase(register.rejected, () => initialState)
       .addCase(logIn.rejected, () => initialState)
-      .addCase(refresh.rejected, () => initialState)
-      .addCase(refresh.pending, (state) => {
+      .addCase(refreshUser.rejected, () => initialState)
+      .addCase(refreshUser.pending, (state) => {
 				state.isRefreshing = true;
 			});
   },

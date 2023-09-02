@@ -7,6 +7,7 @@ import { API } from './constants';
 import { RootState } from '../store';
 import { toastError } from '../../components/common.styled';
 import { initialState } from './slice';
+import { selectToken } from './selectors';
 
 axios.defaults.baseURL = API;
 
@@ -62,20 +63,17 @@ export const logOut = createAsyncThunk(
   }
 });
 
-export const refresh = createAsyncThunk(
-  'auth/current',
+export const refreshUser = createAsyncThunk(
+  'auth/refresh',
   async (_, thunkAPI) => {
-    const { auth } = thunkAPI.getState() as RootState;
+    const token = selectToken(thunkAPI.getState() as RootState);
 
-    const persistedToken = auth.token;
-
-    if (!persistedToken) {
-      return thunkAPI.rejectWithValue(initialState);
+    if (!token) {
+      return initialState;
     }
 
     try {
-
-      setAuthHeader(persistedToken);
+      setAuthHeader(token);
 
       const { data } = await axios.get<IUserAuth>('/auth/current');
 			

@@ -5,7 +5,7 @@ import Loader from './Loader/Loader';
 import { Layout } from './Layout';
 import { RestrictedRoute } from './RestrictedRoute';
 import { PrivateRoute } from './PrivateRoute';
-import { refresh } from '../redux/auth/operations';
+import { refreshUser } from '../redux/auth/operations';
 import { useAuth } from './hooks/useAuth';
 import { useAppDispatch } from './hooks';
 
@@ -19,7 +19,7 @@ const App: FC = () => {
   const { isRefreshing } = useAuth();
 
   useEffect( () => {
-			void dispatch(refresh());
+			void dispatch(refreshUser());
   }, [dispatch]);
 
 	
