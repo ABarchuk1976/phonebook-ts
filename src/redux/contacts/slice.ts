@@ -1,4 +1,5 @@
-import { AnyAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import { UnknownAsyncThunkPendingAction } from '@reduxjs/toolkit/dist/matchers';
 import { toastError } from '../../components/common.styled';
 
 import { IContact, IContactsState } from '../../helpers/interfaces/contacts/contactsInterfaces';
@@ -57,7 +58,6 @@ const contactsSlice = createSlice({
       .addCase(deleteContact.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.error = null;
-				console.log("0. Payload", payload);
         state.items = state.items.filter(({ id }) => id !== payload);
       })
       .addCase(logOut.fulfilled, state => {
@@ -65,8 +65,8 @@ const contactsSlice = createSlice({
         state.isLoading = false;
         state.error = null;
       })
-			.addMatcher((action: AnyAction) => (action.type as string).endsWith('/pending'), handlePending)
-			.addMatcher((action: AnyAction) => (action.type as string).endsWith('/rejected'), handleRejected)
+			.addMatcher((action: UnknownAsyncThunkPendingAction) => action.type.endsWith('/pending') && action.type.startsWith('contacts'), handlePending)
+			.addMatcher((action: UnknownAsyncThunkPendingAction) => action.type.endsWith('/rejected') && action.type.startsWith('contacts'), handleRejected)
   },
 });
 

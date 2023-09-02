@@ -20,7 +20,6 @@ export const register = createAsyncThunk(
   'auth/register',
   async (credentials: Partial<IUserAuth>, thunkAPI) => {
     try {
-
       const { data } = await axios.post<IUserAuth>('/auth/register', credentials);
 
       setAuthHeader(data.token);
