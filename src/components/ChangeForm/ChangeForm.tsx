@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { useState, FC, SyntheticEvent, ChangeEvent } from 'react';
+import { useState, FC, ChangeEvent, FormEvent } from 'react';
 
 import { editContact } from '../../redux/contacts/operations';
 
@@ -13,15 +13,12 @@ import { selectContacts } from '../../redux/contacts/selectors';
 
 import { IContact } from '../../helpers/interfaces/contacts/contactsInterfaces';
 import { useAppDispatch } from '../hooks';
-import { IFormElements } from '../../helpers/interfaces/common/interfaces';
+import { IContactFormElements } from '../../helpers/interfaces/common/interfaces';
 import { toastMessage } from '../common.styled';
 
-type Props = {
-  id: string;
-  name: string;
-  number: string;
+interface Props extends Omit<IContact, 'owner'> {
   onClose: () => void;
-};
+}
 
 const ChangeForm: FC<Props> = ({ id, name, number, onClose }) => {
   const contacts = useSelector(selectContacts);
@@ -39,11 +36,11 @@ const ChangeForm: FC<Props> = ({ id, name, number, onClose }) => {
     }
   };
 
-  const handleEditSubmit = (evt: SyntheticEvent) => {
+  const handleEditSubmit = (evt: FormEvent) => {
     evt.preventDefault();
 
     const form = evt?.target as HTMLFormElement;
-    const elements = form.elements as IFormElements;
+    const elements = form.elements as IContactFormElements;
 
     const contactName = elements.name.value.trim();
     const contactPhone = elements.number.value.trim();
@@ -62,7 +59,7 @@ const ChangeForm: FC<Props> = ({ id, name, number, onClose }) => {
       onClose();
       return;
     }
-		const contactData = { id, name: contactName, number: contactPhone } as Partial<IContact>;
+		const contactData: Omit<IContact, 'owner'> = { id, name: contactName, number: contactPhone };
 
     void dispatch(editContact( contactData ));
 

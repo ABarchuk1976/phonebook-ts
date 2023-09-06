@@ -12,7 +12,7 @@ import {
 
 import { useAppDispatch } from '../hooks';
 import { FC, SyntheticEvent } from 'react';
-import { IFormElements } from '../../helpers/interfaces/common/interfaces';
+import { IContactFormElements } from '../../helpers/interfaces/common/interfaces';
 import { toastMessage } from '../common.styled';
 
 const InputForm: FC = () => {
@@ -23,7 +23,7 @@ const InputForm: FC = () => {
     evt.preventDefault();
 
 		const form = evt?.target as HTMLFormElement;
-    const { name, number } = form.elements as IFormElements;
+    const { name, number } = form.elements as IContactFormElements;
     
     const contactName = name.value.trim();
     const contactPhone = number.value.trim();

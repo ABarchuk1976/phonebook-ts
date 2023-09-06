@@ -1,13 +1,14 @@
-import { StringNull } from "../common/types";
-
 export interface IContact {
 	id: string;
 	name: string;
 	number: string;
+}
+
+export interface IContactData extends IContact {
 	owner: string;
 }
 export interface IContactsState {
-	items: IContact[];
+	items: IContactData[];
   isLoading: boolean;
-  error: StringNull;
+  error: string | null;
 }

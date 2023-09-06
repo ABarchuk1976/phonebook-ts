@@ -1,29 +1,23 @@
 import { CaseReducer, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { logOut, register, logIn, refreshUser } from './operations';
-import { IAuthState, IUserAuth } from '../../helpers/interfaces/auth/authInterfaces';
+import { Credentials, IAuthState } from '../../helpers/interfaces/auth/authInterfaces';
 import { UnknownAsyncThunkPendingAction } from '@reduxjs/toolkit/dist/matchers';
 
-
-
 export const initialState: IAuthState = {
-  name: null, 
-	email: null,
-  token: null,
+  user: {name: null, email: null, token: null},
   isLoggedIn: false,
   isRefreshing: false,
 };
 
-const handleIsLoggedIn: CaseReducer<IAuthState, PayloadAction<Partial<IUserAuth>>> = (state, { payload }): void => { 
+const handleIsLoggedIn: CaseReducer<IAuthState, PayloadAction<Credentials>> = (state, { payload }): void => { 
 	const { name, email, token } = payload;
 
-  if (name) state.name = name;
-  if (email) state.email = email;
-  if (token) state.token = token;
+  if (name) state.user.name = name;
+  if (email) state.user.email = email;
+  if (token) state.user.token = token;
 
   state.isLoggedIn = !!token;
 	state.isRefreshing = false;
-
-	console.log("0. Return data: ", payload);
 };
 
 const handlePending: CaseReducer<IAuthState> = (state): void => {

@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 
-import { IUserAuth } from '../../helpers/interfaces/auth/authInterfaces';
+import { Credentials, IUserAuth } from '../../helpers/interfaces/auth/authInterfaces';
 import { API } from './constants';
 import { toastError } from '../../components/common.styled';
 
@@ -18,7 +18,7 @@ const clearAuthHeader = (): void => {
 
 export const register = createAsyncThunk(
   'auth/register',
-  async (credentials: Partial<IUserAuth>, thunkAPI) => {
+  async (credentials: Credentials, {rejectWithValue}) => {
     try {
       const { data } = await axios.post<IUserAuth>('/auth/register', credentials);
 
@@ -27,14 +27,14 @@ export const register = createAsyncThunk(
       return data;
     } catch (error) {
       toastError('Something went wrong. May be such user name existed yet.');
-      return thunkAPI.rejectWithValue((error as Error).message);
+      return rejectWithValue((error as Error).message);
     }
   }
 );
 
 export const logIn = createAsyncThunk(
   'auth/login',
-  async (credentials: Partial<IUserAuth>, thunkAPI) => {
+  async (credentials: Credentials, thunkAPI) => {
     try {
       const { data } = await axios.post<IUserAuth>('/auth/login', credentials);
 
@@ -61,7 +61,7 @@ export const logOut = createAsyncThunk(
 
 export const refreshUser = createAsyncThunk(
   'auth/refresh',
-  async (credentials: Partial<IUserAuth>, thunkAPI) => {
+  async (credentials: Credentials, thunkAPI) => {
     const token = credentials.token!;
 
 			try {

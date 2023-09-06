@@ -1,4 +1,4 @@
-export interface IFormElements extends HTMLFormControlsCollection {
+export interface IContactFormElements extends HTMLFormControlsCollection {
 	name: HTMLInputElement;
 	number: HTMLInputElement;
 }

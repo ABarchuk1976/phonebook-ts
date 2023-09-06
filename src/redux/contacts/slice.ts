@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { UnknownAsyncThunkPendingAction } from '@reduxjs/toolkit/dist/matchers';
 import { toastError } from '../../components/common.styled';
 
-import { IContact, IContactsState } from '../../helpers/interfaces/contacts/contactsInterfaces';
+import { IContactData, IContactsState } from '../../helpers/interfaces/contacts/contactsInterfaces';
 import { logOut } from '../auth/operations';
 
 import {
@@ -13,7 +13,7 @@ import {
 } from './operations';
 
 const initialState: IContactsState = {
-  items: [] as IContact[],
+  items: [] as IContactData[],
   isLoading: false,
   error: null,
 };
