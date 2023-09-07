@@ -8,8 +8,10 @@ export interface IUserAuth extends IUser {
 	token: string;
 	password: string;
 }
+
+export type UserStateData = Pick<IUserAuth, 'name' | 'email' | 'token'>
 export interface IAuthState {
-	user: Pick<IUserAuth, 'name' | 'email' | 'token'> | {name: null, email: null, token: null};
+	user: UserStateData | null;
   isLoggedIn: boolean;
   isRefreshing: boolean;
 }

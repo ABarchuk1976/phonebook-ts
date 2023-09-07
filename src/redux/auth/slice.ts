@@ -4,7 +4,7 @@ import { Credentials, IAuthState } from '../../helpers/interfaces/auth/authInter
 import { UnknownAsyncThunkPendingAction } from '@reduxjs/toolkit/dist/matchers';
 
 export const initialState: IAuthState = {
-  user: {name: null, email: null, token: null},
+  user: null,
   isLoggedIn: false,
   isRefreshing: false,
 };
@@ -12,9 +12,9 @@ export const initialState: IAuthState = {
 const handleIsLoggedIn: CaseReducer<IAuthState, PayloadAction<Credentials>> = (state, { payload }): void => { 
 	const { name, email, token } = payload;
 
-  if (name) state.user.name = name;
-  if (email) state.user.email = email;
-  if (token) state.user.token = token;
+  if (name && state.user) state.user.name = name;
+  if (email && state.user) state.user.email = email;
+  if (token && state.user) state.user.token = token;
 
   state.isLoggedIn = !!token;
 	state.isRefreshing = false;
