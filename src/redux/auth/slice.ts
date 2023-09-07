@@ -1,6 +1,6 @@
 import { CaseReducer, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { logOut, register, logIn, refreshUser } from './operations';
-import { Credentials, IAuthState } from '../../helpers/interfaces/auth/authInterfaces';
+import { IAuthState, IUserAuth } from '../../helpers/interfaces/auth/authInterfaces';
 import { UnknownAsyncThunkPendingAction } from '@reduxjs/toolkit/dist/matchers';
 
 export const initialState: IAuthState = {
@@ -9,12 +9,9 @@ export const initialState: IAuthState = {
   isRefreshing: false,
 };
 
-const handleIsLoggedIn: CaseReducer<IAuthState, PayloadAction<Credentials>> = (state, { payload }): void => { 
-	const { name, email, token } = payload;
+const handleIsLoggedIn: CaseReducer<IAuthState, PayloadAction<IUserAuth>> = (state, { payload: {name, email, token} }): void => {
 
-  if (name && state.user) state.user.name = name;
-  if (email && state.user) state.user.email = email;
-  if (token && state.user) state.user.token = token;
+	state.user = (name && email && token) ? {...state.user, ...{name, email, token}} : null;
 
   state.isLoggedIn = !!token;
 	state.isRefreshing = false;

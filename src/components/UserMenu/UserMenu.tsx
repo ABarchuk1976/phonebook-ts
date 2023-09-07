@@ -7,12 +7,12 @@ import { StyledButton, UserMenuWrapper, UserText } from './UserMenu.styled';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 
 const UserMenu: FC = () => {
-  const { name } = useAuth();
+  const { user } = useAuth();
   const dispatch = useAppDispatch();
 
   return (
     <UserMenuWrapper>
-      <UserText>Welcome, { name } </UserText>
+      <UserText>Welcome, { user?.name } </UserText>
       <StyledButton type="button" onClick={() => void dispatch(logOut())}>
         Log Out
       </StyledButton>
